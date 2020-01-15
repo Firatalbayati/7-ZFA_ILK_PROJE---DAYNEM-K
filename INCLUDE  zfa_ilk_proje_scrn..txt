@@ -1,0 +1,50 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFA_ILK_PROJE_SCRN
+*&---------------------------------------------------------------------*
+
+SELECTION-SCREEN BEGIN OF BLOCK block WITH FRAME TITLE text-002.
+PARAMETERS : r1 RADIOBUTTON GROUP rb1 DEFAULT 'X' USER-COMMAND uc1,
+             r2 RADIOBUTTON GROUP rb1,
+             r3 RADIOBUTTON GROUP rb1,
+             r4 RADIOBUTTON GROUP rb1.
+SELECTION-SCREEN END OF BLOCK block.
+SELECTION-SCREEN SKIP 1.
+
+
+SELECTION-SCREEN BEGIN OF BLOCK t1 WITH FRAME TITLE text-001.
+SELECT-OPTIONS : s_prsn1 FOR zfa_prsnl_mstr-personel_no MODIF ID uc1,
+                 s_ad FOR zfa_prsnl_mstr-ad MODIF ID uc1,
+                 s_soyad FOR zfa_prsnl_mstr-soyad MODIF ID uc1,
+                 s_cnsyet FOR zfa_prsnl_mstr-cinsiyet MODIF ID uc1,
+                 s_dgm_ye FOR zfa_prsnl_mstr-dogum_yeri MODIF ID uc1,
+                 s_dgm_tr FOR zfa_prsnl_mstr-dogum_tarihi MODIF ID uc1,
+                 s_mdn_hl FOR zfa_prsnl_mstr-medeni_hali MODIF ID uc1,
+                 s_cck_sy FOR zfa_prsnl_mstr-cocuk_sayisi MODIF ID uc1,
+                 s_ulke FOR zfa_prsnl_mstr-ulke MODIF ID uc1.
+SELECTION-SCREEN END OF BLOCK t1.
+
+
+SELECTION-SCREEN BEGIN OF BLOCK t2 WITH FRAME TITLE text-001.
+SELECT-OPTIONS : s_prsn2 FOR zfa_personel_il-personel_no MODIF ID uc2,
+                 s_ilt_tr FOR zfa_personel_il-iletisim_turu MODIF ID uc2,
+                 s_ilt_ts FOR zfa_personel_il-iletisim_taniticisi MODIF ID uc2.
+SELECTION-SCREEN END OF BLOCK t2.
+
+SELECTION-SCREEN BEGIN OF BLOCK t3 WITH FRAME TITLE text-001.
+SELECT-OPTIONS : s_prsn3 FOR zfa_aile_blglr-personel_no MODIF ID uc3,
+                 s_al_tt FOR zfa_aile_blglr-aile_tntci_no MODIF ID uc3,
+                 s_adi FOR zfa_aile_blglr-adi MODIF ID uc3,
+                 s_soya FOR zfa_aile_blglr-soyadi MODIF ID uc3,
+                 s_tlfon FOR zfa_aile_blglr-telefon MODIF ID uc3,
+                 s_sokak FOR zfa_aile_blglr-sokak MODIF ID uc3,
+                 s_sehir FOR zfa_aile_blglr-sehir MODIF ID uc3,
+                 s_ulke2 FOR zfa_aile_blglr-ulke MODIF ID uc3.
+SELECTION-SCREEN END OF BLOCK t3.
+
+SELECTION-SCREEN BEGIN OF BLOCK t4 WITH FRAME TITLE text-001.
+SELECT-OPTIONS : s_prsn4 FOR zfa_egitim_blglr-personel_no MODIF ID uc4,
+                 s_egtm_k FOR zfa_egitim_blglr-egitim_kodu MODIF ID uc4,
+                 s_okl_ad FOR zfa_egitim_blglr-okul_adi MODIF ID uc4,
+                 s_sehir2 FOR zfa_egitim_blglr-sehir MODIF ID uc4,
+                 s_ulke3 FOR zfa_egitim_blglr-ulke MODIF ID uc4.
+SELECTION-SCREEN END OF BLOCK t4.

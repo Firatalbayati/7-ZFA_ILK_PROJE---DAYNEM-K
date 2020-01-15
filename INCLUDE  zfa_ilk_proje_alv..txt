@@ -1,0 +1,101 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFA_ILK_PROJE_ALV
+*&---------------------------------------------------------------------*
+
+
+*&---------------------------------------------------------------------*
+*&      Form  DISPLAY
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM display.
+
+  PERFORM set_layout.
+  DATA(lv_structure_name) = VALUE tabname( ).
+  IF r1 EQ abap_true.
+    lv_structure_name = 'ZFA_PRSNL_MSTR'.
+    PERFORM set_field_catalog USING lv_structure_name.
+    PERFORM display_alv TABLES gt_personelmstr.
+  ELSEIF r2 EQ abap_true.
+    lv_structure_name = 'ZFA_PERSONEL_IL'.
+    PERFORM set_field_catalog USING lv_structure_name.
+    PERFORM display_alv TABLES gt_personelil.
+  ELSEIF r3 EQ abap_true.
+    lv_structure_name = 'ZFA_AILE_BLGLR'.
+    PERFORM set_field_catalog USING lv_structure_name.
+    PERFORM display_alv TABLES gt_personelblglr.
+  ELSEIF r4 EQ abap_true.
+    lv_structure_name = 'ZFA_EGITIM_BLGLR'.
+    PERFORM set_field_catalog USING lv_structure_name.
+    PERFORM display_alv TABLES gt_personeleblglr.
+  ENDIF.
+
+
+
+ENDFORM.                    " DISPLAY
+*&---------------------------------------------------------------------*
+*&      Form  SET_FIELD_CATALOG
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      -->P_LV_STRUCTURE_NAME  text
+*----------------------------------------------------------------------*
+
+FORM set_field_catalog  USING pv_structure_name TYPE tabname.
+  CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
+    EXPORTING
+      i_program_name         = sy-repid
+      i_structure_name       = pv_structure_name
+      i_inclname             = sy-repid
+    CHANGING
+      ct_fieldcat            = gt_fieldcat
+    EXCEPTIONS
+      inconsistent_interface = 1
+      program_error          = 2
+      OTHERS                 = 3.
+
+  IF sy-subrc <> 0.
+    "Implement suitable error handling here
+  ENDIF.
+ENDFORM.                    " SET_FIELD_CATALOG
+*&---------------------------------------------------------------------*
+*&      Form  DISPLAY_ALV
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM display_alv TABLES pv_personel .
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+    EXPORTING
+      i_callback_program = sy-repid
+      is_layout          = ls_layout
+      is_print           = ls_print
+      it_fieldcat        = gt_fieldcat
+    TABLES
+      t_outtab           = pv_personel
+    EXCEPTIONS
+      program_error      = 1
+      OTHERS             = 2.
+
+  IF sy-subrc <> 0.
+    "Implement suitable error handling here
+  ENDIF.
+ENDFORM.                    " DISPLAY_ALV
+*&---------------------------------------------------------------------*
+*&      Form  SET_LAYOUT
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM set_layout .
+  ls_layout-zebra = abap_true.
+  ls_layout-colwidth_optimize = abap_true.
+*  gs_layout-totals_before_items = abap_true.
+ENDFORM.                    " SET_LAYOUT

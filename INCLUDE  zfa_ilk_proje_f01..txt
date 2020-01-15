@@ -1,0 +1,107 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFA_ILK_PROJE_F01
+*&---------------------------------------------------------------------*
+*&---------------------------------------------------------------------*
+*&      Form  MODIFY_SCREEN
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM modify_screen .
+  LOOP AT SCREEN.
+    IF screen-group1 = 'UC1'.
+      IF r1 = abap_true.
+        screen-invisible = '0'.
+        screen-active = '1'.
+      ELSE.
+        screen-invisible = '1'.
+        screen-active = '0'.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
+    IF screen-group1 = 'UC2'.
+      IF r2 = abap_true.
+        screen-invisible = '0'.
+        screen-active = '1'.
+      ELSE.
+        screen-invisible = '1'.
+        screen-active = '0'.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
+    IF screen-group1 = 'UC3'.
+      IF r3 = abap_true.
+        screen-invisible = '0'.
+        screen-active = '1'.
+      ELSE.
+        screen-invisible = '1'.
+        screen-active = '0'.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
+    IF screen-group1 = 'UC4'.
+      IF r4 = abap_true.
+        screen-invisible = '0'.
+        screen-active = '1'.
+      ELSE.
+        screen-invisible = '1'.
+        screen-active = '0'.
+      ENDIF.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.
+ENDFORM.                    " MODIFY_SCREEN
+*&---------------------------------------------------------------------*
+*&      Form  GET_DATA
+*&---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*  -->  p1        text
+*  <--  p2        text
+*----------------------------------------------------------------------*
+FORM get_data .
+  IF r1 EQ abap_true.
+    SELECT * FROM zfa_prsnl_mstr
+     INTO TABLE gt_personelmstr
+     WHERE personel_no IN s_prsn1
+        AND ad  IN s_ad
+        AND soyad  IN s_soyad
+        AND cinsiyet  IN s_cnsyet
+        AND dogum_yeri IN s_dgm_ye
+        AND dogum_tarihi  IN s_dgm_tr
+        AND medeni_hali  IN s_mdn_hl
+        AND cocuk_sayisi  IN s_cck_sy
+        AND ulke IN s_ulke.
+
+  ELSEIF r2 EQ abap_true .
+    SELECT * FROM zfa_personel_il
+   INTO TABLE gt_personelil
+   WHERE personel_no IN s_prsn2
+      AND iletisim_turu  IN s_ilt_tr
+      AND iletisim_taniticisi IN s_ilt_ts.
+
+  ELSEIF r3 EQ abap_true.
+    SELECT * FROM zfa_aile_blglr
+      INTO TABLE gt_personelblglr
+      WHERE personel_no IN s_prsn3
+        AND aile_tntci_no IN s_al_tt
+        AND adi IN s_adi
+        AND soyadi IN s_soya
+        AND telefon IN s_tlfon
+        AND sokak IN s_sokak
+        AND sehir IN s_sehir
+        AND ulke IN s_ulke2.
+
+  ELSEIF r4 EQ abap_true.
+    SELECT * FROM zfa_egitim_blglr
+    INTO TABLE gt_personeleblglr
+    WHERE personel_no IN s_prsn4
+      AND egitim_kodu IN s_egtm_k
+      AND okul_adi IN s_okl_ad
+      AND sehir IN s_sehir2
+      AND ulke IN s_ulke3.
+  ENDIF.
+
+ENDFORM.                    " GET_DATA

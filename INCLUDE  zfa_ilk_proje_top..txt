@@ -1,0 +1,17 @@
+*&---------------------------------------------------------------------*
+*&  Include           ZFA_ILK_PROJE_TOP
+*&---------------------------------------------------------------------*
+
+TABLES: zfa_prsnl_mstr,
+        zfa_personel_il,
+        zfa_aile_blglr,
+        zfa_egitim_blglr.
+
+DATA : gt_personelmstr    TYPE TABLE OF zfa_prsnl_mstr,
+       gt_personelil      TYPE TABLE OF zfa_personel_il,
+       gt_personelblglr   TYPE TABLE OF zfa_aile_blglr,
+       gt_personeleblglr  TYPE TABLE OF zfa_egitim_blglr.
+
+DATA : ls_layout     TYPE   slis_layout_alv,
+       ls_print      TYPE   slis_print_alv,
+       gt_fieldcat   TYPE   slis_t_fieldcat_alv.
